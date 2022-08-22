@@ -1,0 +1,5 @@
+#include "interfaces/Interfaces.hpp"
+#include "Manager/Managers.hpp"
+#include "Structs/Structs.hpp"
+#include "Clock.hpp"
+#include "Entity.hpp"

@@ -1,0 +1,37 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build SDL2",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/*.cpp",
+                "${workspaceFolder}/Engine/*.cpp",
+                "${workspaceFolder}/Engine/Interface/*.cpp",
+                "${workspaceFolder}/Engine/Manager/*.cpp",
+                "-std=c++17",
+                "-I/opt/homebrew/Cellar/sdl2_image/2.6.0_1/include/SDL2",
+                "-I/opt/homebrew/Cellar/sdl2/2.0.22/include/SDL2",
+                "-L/opt/homebrew/Cellar/sdl2_image/2.6.0_1/lib",
+                "-L/opt/homebrew/Cellar/sdl2/2.0.22/lib",
+                "-lsdl2",
+                "-lsdl2_image",
+                "-o${workspaceFolder}/Main"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build project with SDL2."
+        }
+    ]
+}
