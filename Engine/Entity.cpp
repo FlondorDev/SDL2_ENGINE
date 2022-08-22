@@ -9,15 +9,18 @@ Entity::Entity(int W, int H, std::string Tex, Vector2 Pos, int speed): Width {W}
 }
 
 void Entity::Draw(){
+    SDL_Rect size {static_cast<int>(Position.X),static_cast<int>(Position.Y),650,850};
+    SDL_SetTextureColorMod(GFXManager::Get(Texture), 0,255,255); 
+    SDL_Point Pivot {(int)(rect.w * 0.5f), (int)(rect.h * 0.5f)};
     //Render texture to screen
-    SDL_RenderCopy( GFXManager::Renderer, GFXManager::Get(Texture), NULL,  &rect );
+    SDL_RenderCopyEx( GFXManager::Renderer, GFXManager::Get(Texture), &size,  &rect, Position.X, &Pivot, SDL_FLIP_NONE );
 }
 
 void Entity::Update(){
     Position.X += velocity.X * Speed;// * Clock::GetDeltaTime();
     Position.Y += velocity.Y * Speed;// * Clock::GetDeltaTime();
-    rect.x = Position.X;
-    rect.y = Position.Y;
+    //rect.x = Position.X;
+    //rect.y = Position.Y;
     //rect.w = Width;
     //rect.h = Height;
 }

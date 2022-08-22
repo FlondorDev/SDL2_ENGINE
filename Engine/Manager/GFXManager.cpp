@@ -16,6 +16,7 @@ SDL_Texture* GFXManager::LoadImage(std::string path){
         printf("SDL Error: %s\n", SDL_GetError());
         return nullptr;
     }
+    //SDL_SetColorKey(tmp, SDL_TRUE, SDL_MapRGB(tmp->format,255,255,255));
     SDL_Texture* tmpOpt = SDL_CreateTextureFromSurface(GFXManager::Renderer, tmp);
 
     SDL_FreeSurface(tmp);
@@ -56,21 +57,21 @@ void GFXManager::Init(std::string title, int W, int H)
     {
         Window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
         //Create window
-        if (Window == NULL)
+        if (Window == nullptr)
         {
             printf("SDL_Error: %s\n", SDL_GetError());
         }
 
         //Create renderer for window
-        Renderer = SDL_CreateRenderer( Window, -1, SDL_RENDERER_ACCELERATED );
-        if( Renderer == NULL )
+        Renderer = SDL_CreateRenderer( Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+        if( Renderer == nullptr )
         {
             printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
         }
         else
         {
             //Initialize renderer color
-            SDL_SetRenderDrawColor( Renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+            SDL_SetRenderDrawColor( Renderer, 0, 0, 0, 255 );
 
             if( !( IMG_Init( IMG_INIT_PNG ) & IMG_INIT_PNG ) ){
                 printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );

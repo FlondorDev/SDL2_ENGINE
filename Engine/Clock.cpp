@@ -5,7 +5,7 @@ Uint64 Clock::END = 0;
 Uint32 Clock::lastUpdate = SDL_GetTicks();
 Uint32 Clock::current = 0;
 double Clock::deltaTime = 0;
-int Clock::FPS_TARGET = 120;
+int Clock::FPS_TARGET = 60;
 int Clock::FRAME_DELAY = 1000 / FPS_TARGET;
 
 void Clock::StartTick(){

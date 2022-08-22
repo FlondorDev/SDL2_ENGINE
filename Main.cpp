@@ -17,6 +17,7 @@ int main(int argc, char* args[])
 
     Entity player {150,150,"Chiron",Vector2{30,30},8};
     std::string Title;
+    SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
 
     while (!quit) {
         Clock::StartTick();
@@ -28,34 +29,22 @@ int main(int argc, char* args[])
             }
         }
 
-        ControllerManager::Input(SDL_GetKeyboardState(NULL));
+        ControllerManager::Input(SDL_GetKeyboardState(nullptr));
 
         UpdateManager::Update();
 
         //Clear screen
         SDL_RenderClear( GFXManager::Renderer );
-        SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Hello"), NULL, NULL);
+
+        
+        
+        SDL_RenderSetViewport(GFXManager::Renderer, nullptr);
         DrawManager::Draw();
 
-        SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-        SDL_SetRenderDrawColor( GFXManager::Renderer, 255, 0, 0, 255 );        
-        SDL_RenderFillRect( GFXManager::Renderer, &fillRect );
-
-        SDL_Rect outlineRect = { SCREEN_WIDTH / 6, SCREEN_HEIGHT / 6, SCREEN_WIDTH * 2 / 3, SCREEN_HEIGHT * 2 / 3 };
-        SDL_SetRenderDrawColor( GFXManager::Renderer, 0, 255, 0, 255 );        
-        SDL_RenderDrawRect( GFXManager::Renderer, &outlineRect );
-
-        SDL_SetRenderDrawColor( GFXManager::Renderer, 0, 0, 255, 255 );        
-        SDL_RenderDrawLine( GFXManager::Renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2 );
-        SDL_RenderDrawLine( GFXManager::Renderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT );
-        SDL_RenderDrawLine( GFXManager::Renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-
-        SDL_SetRenderDrawColor( GFXManager::Renderer, 0xFF, 0xFF, 0x00, 0xFF );
-        for( int i = 0; i < SCREEN_HEIGHT; i += 4 )
-        {
-            SDL_RenderDrawPoint( GFXManager::Renderer, SCREEN_WIDTH / 2, i );
-        }
-
+        SDL_RenderSetViewport(GFXManager::Renderer, &viewPort);
+        SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Hello"), nullptr, nullptr);
+        
+        
         //Update screen
         SDL_RenderPresent( GFXManager::Renderer );
 
