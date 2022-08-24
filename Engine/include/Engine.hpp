@@ -2,4 +2,4 @@
 #include "Manager/Managers.hpp"
 #include "Structs/Structs.hpp"
 #include "Clock.hpp"
-#include "Entity.hpp"
+#include "GameObject.hpp"

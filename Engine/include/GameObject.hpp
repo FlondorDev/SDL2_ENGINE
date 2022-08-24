@@ -1,5 +1,5 @@
-#ifndef _ENTITY_H_
-#define _ENTITY_H_
+#ifndef _GAMEOBJECT_H_
+#define _GAMEOBJECT_H_
 #include <iostream>
 #include <SDL.h>
 #include "interfaces/Interfaces.hpp"
@@ -7,9 +7,9 @@
 #include "Manager/Managers.hpp"
 #include "Clock.hpp"
 
-class Entity : public IController, public IDraw, public IUpdate
+class GameObject : public IController, public IDraw, public IUpdate
 {
-    private:
+    protected:
         SDL_Rect rect;
         Vector2 velocity;
 
@@ -19,10 +19,11 @@ class Entity : public IController, public IDraw, public IUpdate
         std::string Texture;
         int Width;
         int Height;
-        Entity(int, int, std::string, Vector2, int);
+        GameObject(int, int, std::string, Vector2, int);
         void Draw() override;
         void Update() override;
         void Input(const Uint8 *keyboard_state_array) override;
+        void onCollide(ColliderInfo);
 };
 
 

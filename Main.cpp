@@ -15,7 +15,7 @@ int main(int argc, char* args[])
     GFXManager::Add("Hello", "Assets/preview.png");
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
 
-    Entity player {150,150,"Chiron",Vector2{30,30},8};
+    GameObject player {150,150,"Chiron",Vector2{30,30},8};
     std::string Title;
     SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
 
@@ -35,15 +35,12 @@ int main(int argc, char* args[])
 
         //Clear screen
         SDL_RenderClear( GFXManager::Renderer );
-
-        
         
         SDL_RenderSetViewport(GFXManager::Renderer, nullptr);
         DrawManager::Draw();
 
         SDL_RenderSetViewport(GFXManager::Renderer, &viewPort);
         SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Hello"), nullptr, nullptr);
-        
         
         //Update screen
         SDL_RenderPresent( GFXManager::Renderer );
