@@ -6,12 +6,13 @@
 #include "Structs/Structs.hpp"
 #include "Manager/Managers.hpp"
 #include "Clock.hpp"
+#include "Physics/RigidBody.hpp"
 
-class GameObject : public IController, public IDraw, public IUpdate
+class GameObject : public IDraw, public IUpdate
 {
     protected:
         SDL_Rect rect;
-        Vector2 velocity;
+        RigidBody rb;
 
     public:
         int Speed;
@@ -19,11 +20,10 @@ class GameObject : public IController, public IDraw, public IUpdate
         std::string Texture;
         int Width;
         int Height;
-        GameObject(int, int, std::string, Vector2, int);
+        GameObject(int W, int H, std::string Tex, Vector2 Pos, int speed);
         void Draw() override;
         void Update() override;
-        void Input(const Uint8 *keyboard_state_array) override;
-        void onCollide(ColliderInfo);
+        virtual void onCollide(CollisionInfo);
 };
 
 

@@ -1,2 +1,2 @@
 #include "Vector2.hpp"
-#include "ColliderInfo.hpp"
+#include "CollisionInfo.hpp"

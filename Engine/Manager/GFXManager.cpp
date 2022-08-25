@@ -83,6 +83,7 @@ void GFXManager::Init(std::string title, int W, int H)
 
 void GFXManager::Close()
 {
+    
     std::map<std::string, SDL_Texture*>::iterator itr;
 
     for (itr = Surfaces.begin(); itr != Surfaces.end(); ++itr) {

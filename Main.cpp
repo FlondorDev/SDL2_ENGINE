@@ -15,11 +15,16 @@ int main(int argc, char* args[])
     GFXManager::Add("Hello", "Assets/preview.png");
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
 
-    GameObject player {150,150,"Chiron",Vector2{30,30},8};
+    GameObject obj {150,150,"Hello",Vector2{300,90},8};
+    Player player {150,150,"Chiron",Vector2{30,30},8};
     std::string Title;
     SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
 
     while (!quit) {
+        //Clear screen
+        SDL_RenderClear( GFXManager::Renderer );
+        SDL_RenderSetViewport(GFXManager::Renderer, nullptr);
+
         Clock::StartTick();
 
         while(SDL_PollEvent(&e) != 0){
@@ -32,11 +37,9 @@ int main(int argc, char* args[])
         ControllerManager::Input(SDL_GetKeyboardState(nullptr));
 
         UpdateManager::Update();
-
-        //Clear screen
-        SDL_RenderClear( GFXManager::Renderer );
         
-        SDL_RenderSetViewport(GFXManager::Renderer, nullptr);
+        PhysicsManager::Update();
+        
         DrawManager::Draw();
 
         SDL_RenderSetViewport(GFXManager::Renderer, &viewPort);
@@ -51,6 +54,10 @@ int main(int argc, char* args[])
  
     }
 
+    ControllerManager::Clear();
+    UpdateManager::Clear();
+    PhysicsManager::Clear();
+    DrawManager::Clear();
     GFXManager::Close();
     return 0;
 }

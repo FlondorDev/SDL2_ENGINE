@@ -12,6 +12,8 @@ struct Vector2
     inline Vector2 Normalized();
     inline Vector2 operator-(Vector2 rhs);
     inline Vector2 operator+(Vector2 rhs);
+    inline Vector2 operator*(Vector2 rhs);
+    inline Vector2 operator/(Vector2 rhs);
 };
 
 float Vector2::Lenght(){
@@ -39,6 +41,14 @@ Vector2 Vector2::operator-(Vector2 rhs){
 
 Vector2 Vector2::operator+(Vector2 rhs){
     return Vector2{X + rhs.X, Y + rhs.Y};
+}
+
+Vector2 Vector2::operator*(Vector2 rhs){
+    return Vector2{X * rhs.X, Y * rhs.Y};
+}
+
+Vector2 Vector2::operator/(Vector2 rhs){
+    return Vector2{X / rhs.X, Y / rhs.Y};
 }
 
 

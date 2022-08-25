@@ -5,7 +5,10 @@
 #include "../interfaces/Interfaces.hpp"
 #include "../Structs/Structs.hpp"
 #include "../Manager/Managers.hpp"
-#include "RigidBody.hpp"
+
+class RigidBody;
+class CircleCollider;
+class BoxCollider;
 
 
 class Collider
@@ -15,17 +18,13 @@ class Collider
         Collider(RigidBody* owner, Vector2 Offset);
     public:
         Vector2 Offset;
-        virtual inline Vector2 GetPosition();
-        virtual inline bool CheckCollision(Collider*);
-        virtual void OnCollide(ColliderInfo);
+        virtual Vector2 GetPosition();
+        virtual bool CheckCollision(Collider*, CollisionInfo& Info);
+        virtual bool CheckCollision(CircleCollider*, CollisionInfo& Info);
+        virtual bool CheckCollision(BoxCollider*, CollisionInfo& Info);
+        virtual void Draw();
 };
 
-bool Collider::CheckCollision(Collider* Other){
-    return Other->CheckCollision(this);
-}
-
-Vector2 Collider::GetPosition(){
-    return (*owner->Position) + Offset;
-}
+int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);    
 
 #endif

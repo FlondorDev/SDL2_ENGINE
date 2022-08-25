@@ -17,8 +17,10 @@ class CircleCollider : public Collider
         int r;
     public:
         CircleCollider(RigidBody* owner, int R, Vector2 offset = {0,0});
-        bool CheckCollision(CircleCollider*);
-        bool CheckCollision(BoxCollider*);
+        bool CheckCollision(Collider*, CollisionInfo& Info) override;
+        bool CheckCollision(CircleCollider*, CollisionInfo& Info) override;
+        bool CheckCollision(BoxCollider*, CollisionInfo& Info) override;
+        void Draw() override;
 };
 
 #endif

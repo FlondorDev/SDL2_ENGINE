@@ -6,21 +6,27 @@
 #include "../Structs/Structs.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Clock.hpp"
-#include "../GameObject.hpp"
+
+class Collider;
+class GameObject;
 
 class RigidBody
 {
+    friend void PhysicsManager::Update();
+    
     private:
+        Collider* collider;
         GameObject* const owner;
 
     public:
         Vector2* const Position;
         Vector2 Velocity;
         RigidBody(GameObject* owner);
+        ~RigidBody();
         void Update();
-        void OnCollide(ColliderInfo);
+        bool CheckCollision(RigidBody* Other, CollisionInfo& Info);
+        void CreateCircleCollider(int Radius, Vector2 Offset = {0,0});
+        void CreateBoxCollider(int W, int H, Vector2 Offset = {0,0});
 };
-
-
 
 #endif
