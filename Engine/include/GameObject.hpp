@@ -15,12 +15,11 @@ class GameObject : public IDraw, public IUpdate
         RigidBody rb;
 
     public:
-        int Speed;
         Vector2 Position;
         std::string Texture;
         int Width;
         int Height;
-        GameObject(int W, int H, std::string Tex, Vector2 Pos, int speed);
+        GameObject(int W, int H, std::string Tex, Vector2 Pos);
         void Draw() override;
         void Update() override;
         virtual void onCollide(CollisionInfo);

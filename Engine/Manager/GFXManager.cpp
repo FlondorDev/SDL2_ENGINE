@@ -63,7 +63,7 @@ void GFXManager::Init(std::string title, int W, int H)
         }
 
         //Create renderer for window
-        Renderer = SDL_CreateRenderer( Window, -1, SDL_RENDERER_ACCELERATED );
+        Renderer = SDL_CreateRenderer( Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
         if( Renderer == nullptr )
         {
             printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );

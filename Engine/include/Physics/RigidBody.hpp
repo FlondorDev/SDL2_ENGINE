@@ -19,9 +19,10 @@ class RigidBody
         GameObject* const owner;
 
     public:
+        int Speed;
         Vector2* const Position;
         Vector2 Velocity;
-        RigidBody(GameObject* owner);
+        RigidBody(GameObject* owner, int speed = 0);
         ~RigidBody();
         void Update();
         bool CheckCollision(RigidBody* Other, CollisionInfo& Info);

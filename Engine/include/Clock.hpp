@@ -10,7 +10,6 @@ class Clock
         static Uint32 fpsTimer;
         static Uint32 capTimer;
         static int countedFrames;
-        static float avgFPS;
         Clock();
 
     public:
@@ -18,7 +17,6 @@ class Clock
         static void StartTick();
         static void EndTick();
         static float GetFps();
-        static float GetAvgFps();
         static double GetDeltaTime();
 };
 

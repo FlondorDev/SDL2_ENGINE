@@ -1,6 +1,6 @@
 #include "include/GameObject.hpp"
 
-GameObject::GameObject(int W, int H, std::string Tex, Vector2 Pos, int speed): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, Speed{speed}, rb{this}
+GameObject::GameObject(int W, int H, std::string Tex, Vector2 Pos): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, rb{this}
 {
     rect.w = Width;
     rect.h = Height;

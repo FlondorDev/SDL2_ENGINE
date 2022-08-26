@@ -3,7 +3,7 @@
 #include "../include/Physics/CircleCollider.hpp"
 #include "../include/GameObject.hpp"
 
-RigidBody::RigidBody(GameObject* Owner) : owner(Owner), Position(&Owner->Position), collider(nullptr)
+RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}
 {
     PhysicsManager::Add(this);
 }
@@ -15,8 +15,8 @@ RigidBody::~RigidBody() {
 }
 
 void RigidBody::Update(){
-    (*Position).X += Velocity.X * owner->Speed;// * Clock::GetDeltaTime();
-    (*Position).Y += Velocity.Y * owner->Speed;// * Clock::GetDeltaTime();
+    (*Position).X += Velocity.X * Speed;// * Clock::GetDeltaTime();
+    (*Position).Y += Velocity.Y * Speed;// * Clock::GetDeltaTime();
 }
 
 bool RigidBody::CheckCollision(RigidBody* Other, CollisionInfo& Info){
