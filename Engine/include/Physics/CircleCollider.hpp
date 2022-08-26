@@ -16,6 +16,7 @@ class CircleCollider : public Collider
     private:
         int r;
     public:
+        Vector2 GetPosition() override;
         CircleCollider(RigidBody* owner, int R, Vector2 offset = {0,0});
         bool CheckCollision(Collider*, CollisionInfo& Info) override;
         bool CheckCollision(CircleCollider*, CollisionInfo& Info) override;

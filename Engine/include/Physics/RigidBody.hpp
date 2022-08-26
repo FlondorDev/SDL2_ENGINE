@@ -12,7 +12,7 @@ class GameObject;
 
 class RigidBody
 {
-    friend void PhysicsManager::Update();
+    friend class PhysicsManager;
     
     private:
         Collider* collider;

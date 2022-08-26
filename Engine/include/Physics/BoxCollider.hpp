@@ -15,6 +15,7 @@ class BoxCollider : public Collider
         int w, h;
     public:
         BoxCollider(RigidBody* owner, int w, int h, Vector2 offset = {0,0});
+        Vector2 GetPosition() override;
         bool CheckCollision(Collider*, CollisionInfo& Info) override;
         bool CheckCollision(CircleCollider*, CollisionInfo& Info) override;
         bool CheckCollision(BoxCollider*, CollisionInfo& Info) override;

@@ -42,6 +42,8 @@ int main(int argc, char* args[])
         
         DrawManager::Draw();
 
+        PhysicsManager::Draw();
+
         SDL_RenderSetViewport(GFXManager::Renderer, &viewPort);
         SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Hello"), nullptr, nullptr);
         

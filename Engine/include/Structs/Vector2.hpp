@@ -10,6 +10,7 @@ struct Vector2
     inline float LenghtSquared();
     inline void Normalize();
     inline Vector2 Normalized();
+    inline Vector2 operator-();
     inline Vector2 operator-(Vector2 rhs);
     inline Vector2 operator+(Vector2 rhs);
     inline Vector2 operator*(Vector2 rhs);
@@ -33,6 +34,10 @@ void Vector2::Normalize(){
 Vector2 Vector2::Normalized(){
     float lenght = Lenght();
     return Vector2 {X/lenght, Y/lenght};
+}
+
+Vector2 Vector2::operator-(){
+    return Vector2{-X, -Y};
 }
 
 Vector2 Vector2::operator-(Vector2 rhs){

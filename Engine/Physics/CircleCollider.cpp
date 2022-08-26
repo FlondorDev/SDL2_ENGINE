@@ -1,17 +1,49 @@
 #include "../include/Physics/CircleCollider.hpp"
 #include "../include/Physics/BoxCollider.hpp"
+#include "../include/Physics/RigidBody.hpp"
 
 CircleCollider::CircleCollider(RigidBody* Owner, int R, Vector2 offset) : Collider(Owner,offset), r(R)
 {
     
 }
 
+Vector2 CircleCollider::GetPosition(){
+    return (Vector2 {owner->Position->X + (r), owner->Position->Y + (r)} ) + Offset;
+}
+
 bool CircleCollider::CheckCollision(CircleCollider* Other, CollisionInfo& Info){
-    return (Other->r * Other->r) + (r * r) >= (Other->GetPosition() - GetPosition()).LenghtSquared();
+    Vector2 dist = (Other->GetPosition() - GetPosition());
+    if(((Other->r + r) * (Other->r + r)) >= dist.LenghtSquared()){
+        
+        Vector2 distNormalized = dist.Normalized();
+
+        Info.deltaPos.X = -(abs(dist.X) - (abs(distNormalized.X) * (Other->r + r)));
+        Info.deltaPos.Y = -(abs(dist.Y) - (abs(distNormalized.Y) * (Other->r + r)));
+
+        // Horizontal Collision
+        if (GetPosition().X < Other->GetPosition().X)
+        {
+            // Collision from Left (inverse horizontal delta)
+            Info.deltaPos.X = -Info.deltaPos.X;
+        }
+
+        // Vertical Collision
+        if (GetPosition().Y < Other->GetPosition().Y)
+        {
+            // Collision from Top
+            Info.deltaPos.Y = -Info.deltaPos.Y;
+        }
+        return true;
+    }
+    return false;
 }
 
 bool CircleCollider::CheckCollision(BoxCollider* Other, CollisionInfo& Info){
-    return Other->CheckCollision(this, Info);
+    bool result = Other->CheckCollision(this, Info);
+    if(result){
+        Info.deltaPos = -Info.deltaPos;
+    }
+    return result;
 }
 
 bool CircleCollider::CheckCollision(Collider* Other, CollisionInfo& Info){
@@ -20,5 +52,7 @@ bool CircleCollider::CheckCollision(Collider* Other, CollisionInfo& Info){
 
 void CircleCollider::Draw(){
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,255,255);
-    SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X + r, GetPosition().Y + r, r);
+    SDL_RenderDrawPoint(GFXManager::Renderer, GetPosition().X, GetPosition().Y);
+    SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X, GetPosition().Y, r);
+    SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,0,255);
 }

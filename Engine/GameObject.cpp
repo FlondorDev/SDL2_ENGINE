@@ -6,7 +6,8 @@ GameObject::GameObject(int W, int H, std::string Tex, Vector2 Pos, int speed): W
     rect.h = Height;
     rect.x = Position.X;
     rect.y = Position.Y;
-    rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
+    rb.CreateBoxCollider(W+1, H+1, Vector2 {-1,-1});
+    //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 
 void GameObject::Draw(){
@@ -25,6 +26,9 @@ void GameObject::Update(){
     //rect.h = Height;
 }
 
-void GameObject::onCollide(CollisionInfo info){
-
+void GameObject::onCollide(CollisionInfo collisionInfo){
+    Position.X += collisionInfo.deltaPos.X;
+    Position.Y += collisionInfo.deltaPos.Y;
+    rect.x = Position.X;
+    rect.y = Position.Y;
 }

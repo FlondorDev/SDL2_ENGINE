@@ -21,7 +21,6 @@ void RigidBody::Update(){
 
 bool RigidBody::CheckCollision(RigidBody* Other, CollisionInfo& Info){
     return collider->CheckCollision(Other->collider, Info);
-    
 }
 
 void RigidBody::CreateCircleCollider(int Radius, Vector2 Offset){

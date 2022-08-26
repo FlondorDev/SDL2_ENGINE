@@ -12,13 +12,25 @@ void PhysicsManager::Update(){
         for (size_t j = i + 1; j < RigidBodys.size(); j++)
         {   
             if(RigidBodys.at(i)->CheckCollision(RigidBodys.at(j), Info)){
-                Info.other = RigidBodys.at(j)->owner;
-                RigidBodys.at(i)->owner->onCollide(Info);
+
                 Info.other = RigidBodys.at(i)->owner;
                 RigidBodys.at(j)->owner->onCollide(Info);
+
+                // reverse result
+                Info.deltaPos = -Info.deltaPos;
+
+                Info.other = RigidBodys.at(j)->owner;
+                RigidBodys.at(i)->owner->onCollide(Info);
+        
             }
         }
-         RigidBodys.at(i)->collider->Draw();
+    }
+}
+
+void PhysicsManager::Draw(){
+    for (size_t i = 0; i < RigidBodys.size(); i++)
+    {
+        RigidBodys.at(i)->collider->Draw();
     }
 }
 

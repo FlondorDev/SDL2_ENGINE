@@ -15,6 +15,7 @@ class PhysicsManager
     public:
         static void Add(RigidBody*);
         static void Update();
+        static void Draw();
         static void Remove(RigidBody*);
         static void Clear();
 };
