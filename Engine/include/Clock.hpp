@@ -5,30 +5,22 @@
 class Clock
 {
     private:
-        static Uint64 START;
-        static Uint64 END;
-        static Uint32 lastUpdate;
-        static Uint32 current;
-        static double deltaTime;
         static int FPS_TARGET;
         static int FRAME_DELAY;
+        static Uint32 fpsTimer;
+        static Uint32 capTimer;
+        static int countedFrames;
+        static float avgFPS;
         Clock();
 
     public:
         static void SetFPS(int);
         static void StartTick();
         static void EndTick();
-        static inline float GetFps();
-        static inline double GetDeltaTime();
+        static float GetFps();
+        static float GetAvgFps();
+        static double GetDeltaTime();
 };
-
-inline float Clock::GetFps(){
-    return 1.0f / ((SDL_GetPerformanceCounter() - START) / (float)SDL_GetPerformanceFrequency());
-}
-
-inline double Clock::GetDeltaTime(){
-    return deltaTime;
-}
 
 
 #endif

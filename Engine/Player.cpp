@@ -1,8 +1,8 @@
 #include "include/Player.hpp"
 
 Player::Player(int W, int H, std::string Tex, Vector2 Pos, int speed): GameObject{W,H,Tex,Pos,speed}{
-    //rb.CreateBoxCollider(W+2,H+2, Vector2{-1,-1});
-    rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
+    rb.CreateBoxCollider(W+2,H+2, Vector2{-1,-1});
+    //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 
 void Player::Input(const Uint8 *keyboard_state_array){

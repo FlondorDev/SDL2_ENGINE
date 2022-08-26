@@ -6,6 +6,12 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
+int main(int argc, char* args[]);
+
+int WinMain(int argc, char* args[]){
+    return main(argc, args);
+}
+
 int main(int argc, char* args[])
 {
     SDL_Event e{};
@@ -15,8 +21,9 @@ int main(int argc, char* args[])
     GFXManager::Add("Hello", "Assets/preview.png");
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
 
-    GameObject obj {150,150,"Hello",Vector2{300,90},8};
     Player player {150,150,"Chiron",Vector2{30,30},8};
+    GameObject obj {150,150,"Hello",Vector2{300,90},8};
+
     std::string Title;
     SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
 
@@ -51,7 +58,7 @@ int main(int argc, char* args[])
         SDL_RenderPresent( GFXManager::Renderer );
 
         Clock::EndTick();
-        Title = "Current FPS: " + std::to_string(Clock::GetFps()) + " Current DeltaTime: " + std::to_string(Clock::GetDeltaTime());
+        Title = "Average FPS: " + std::to_string(Clock::GetAvgFps()) + "Current FPS: " + std::to_string(Clock::GetFps()) + " Current DeltaTime: " + std::to_string(Clock::GetDeltaTime());
         SDL_SetWindowTitle(GFXManager::Window, Title.c_str());
  
     }

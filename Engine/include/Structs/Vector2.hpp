@@ -1,5 +1,6 @@
 #ifndef _VECTOR2_H_
 #define _VECTOR2_H_
+#include "math.h"
 
 struct Vector2
 {
