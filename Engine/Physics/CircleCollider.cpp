@@ -23,16 +23,25 @@ bool CircleCollider::CheckCollision(CircleCollider* Other, CollisionInfo& Info){
         // Horizontal Collision
         if (GetPosition().X < Other->GetPosition().X)
         {
+            Info.collision |= CollisionType::LEFT;
             // Collision from Left (inverse horizontal delta)
             Info.deltaPos.X = -Info.deltaPos.X;
+        }
+        else
+        {
+            Info.collision |= CollisionType::BOTTOM;
         }
 
         // Vertical Collision
         if (GetPosition().Y < Other->GetPosition().Y)
         {
+            Info.collision |= CollisionType::TOP;
             // Collision from Top
             Info.deltaPos.Y = -Info.deltaPos.Y;
+        }else{
+            Info.collision |= CollisionType::BOTTOM;
         }
+
         return true;
     }
     return false;
@@ -41,6 +50,7 @@ bool CircleCollider::CheckCollision(CircleCollider* Other, CollisionInfo& Info){
 bool CircleCollider::CheckCollision(BoxCollider* Other, CollisionInfo& Info){
     bool result = Other->CheckCollision(this, Info);
     if(result){
+        Info.collision = ~Info.collision;
         Info.deltaPos = -Info.deltaPos;
     }
     return result;

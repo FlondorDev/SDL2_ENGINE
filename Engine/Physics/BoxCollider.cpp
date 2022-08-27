@@ -19,15 +19,14 @@ BoxCollider::BoxCollider(RigidBody* Owner, int W, int H, Vector2 offset) : Colli
 }
 
 bool BoxCollider::CheckCollision(BoxCollider* Other, CollisionInfo& Info){
-
-    if(GetPosition().X - (w *0.5f) < Other->GetPosition().X + (Other->w *0.5f) &&
-           GetPosition().X + (w *0.5f) > Other->GetPosition().X - (Other->w *0.5f) &&
-           GetPosition().Y - (h *0.5f)< Other->GetPosition().Y + (Other->h *0.5f) &&
-           GetPosition().Y + (h *0.5f) > Other->GetPosition().Y - (Other->h *0.5f))
+    if(GetPosition().X - (w *0.5f) <= Other->GetPosition().X + (Other->w *0.5f) &&
+           GetPosition().X + (w *0.5f) >= Other->GetPosition().X - (Other->w *0.5f) &&
+           GetPosition().Y - (h *0.5f) <= Other->GetPosition().Y + (Other->h *0.5f) &&
+           GetPosition().Y + (h *0.5f) >= Other->GetPosition().Y - (Other->h *0.5f))
     {
         SDL_SetRenderDrawColor(GFXManager::Renderer, 255,0,0,255);
         Info.deltaPos = (Vector2{Other->GetPosition().X, Other->GetPosition().Y} - Vector2{GetPosition().X , GetPosition().Y});
-       
+
         Info.deltaPos.X = -(abs(Info.deltaPos.X) - ((w *0.5f) + (Other->w *0.5f)));
         Info.deltaPos.Y = -(abs(Info.deltaPos.Y) - ((h *0.5f) + (Other->h *0.5f)));
 
@@ -36,8 +35,11 @@ bool BoxCollider::CheckCollision(BoxCollider* Other, CollisionInfo& Info){
             // Horizontal Collision
             if (GetPosition().X < Other->GetPosition().X)
             {
+                Info.collision |= CollisionType::LEFT;
                 // Collision from Left (inverse horizontal delta)
                 Info.deltaPos.X = -Info.deltaPos.X;
+            }else{
+                Info.collision |= CollisionType::RIGHT;
             }
 
             Info.deltaPos.Y = 0;
@@ -48,14 +50,18 @@ bool BoxCollider::CheckCollision(BoxCollider* Other, CollisionInfo& Info){
             // Vertical Collision
             if (GetPosition().Y < Other->GetPosition().Y)
             {
+                Info.collision |= CollisionType::TOP;
                 // Collision from Top
                 Info.deltaPos.Y = -Info.deltaPos.Y;
                 owner->Velocity.Y = 0.0f;
+                Other->owner->Velocity.Y = -Other->owner->Velocity.Y * 0.2f;
             }
             else
             {
+                Info.collision |= CollisionType::BOTTOM;
                 // Collision from Bottom
-                owner->Velocity.Y = -owner->Velocity.Y * 0.8f;
+                Other->owner->Velocity.Y = 0.0f;
+                owner->Velocity.Y = -owner->Velocity.Y * 0.2f;
             }
 
             Info.deltaPos.X = 0;
@@ -86,15 +92,21 @@ bool BoxCollider::CheckCollision(CircleCollider* Other, CollisionInfo& Info){
         // Horizontal Collision
         if (GetPosition().X < Other->GetPosition().X)
         {
+            Info.collision |= CollisionType::LEFT;
             // Collision from Left (inverse horizontal delta)
             Info.deltaPos.X = -Info.deltaPos.X;
+        }else{
+            Info.collision |= CollisionType::RIGHT;
         }
 
         // Vertical Collision
         if (GetPosition().Y < Other->GetPosition().Y)
         {
+            Info.collision |= CollisionType::TOP;
             // Collision from Top
             Info.deltaPos.Y = -Info.deltaPos.Y;
+        }else{
+            Info.collision |= CollisionType::BOTTOM;
         }
     
         return true;

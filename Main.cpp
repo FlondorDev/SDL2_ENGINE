@@ -22,7 +22,9 @@ int main(int argc, char* args[])
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
 
     Player player {150,150,"Chiron",Vector2{30,30},6};
-    GameObject obj {150,150,"Hello",Vector2{300,90}};
+    GameObject obj {1280,100,"Hello",Vector2{0,620}};
+    GameObject obj2 {150,150,"Hello",Vector2{0,470}};
+    GameObject obj3 {300,300,"Hello",Vector2{400,70}};
 
     std::string Title;
     SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };

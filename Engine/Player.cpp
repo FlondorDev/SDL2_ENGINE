@@ -2,23 +2,32 @@
 
 Player::Player(int W, int H, std::string Tex, Vector2 Pos, int speed): GameObject{W,H,Tex,Pos}{
     rb.Speed = speed;
-    rb.CreateBoxCollider(W+2,H+2, Vector2{-1,-1});
+    rb.CreateBoxCollider(W,H);
+    rb.isActive = true;
+    rb.isGravityAffected = true;
     //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
+}
+
+void Player::Update(){
+    std::cout<<rb.isGrounded<<std::endl;
+    rb.Update();
+    rect.x = Position.X;
+    rect.y = Position.Y;
+}
+
+void Player::Jump(){
+    if(rb.isGrounded){
+        rb.Velocity.Y += -30;
+    }
 }
 
 void Player::Input(const Uint8 *keyboard_state_array){
     // Move centerpoint of rotation for one of the trees:
-    if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
+    if (keyboard_state_array[SDL_SCANCODE_SPACE])
     {
-        rb.Velocity.Y = -1;
+        Jump();
     }
-    else if (keyboard_state_array[SDL_SCANCODE_DOWN] || keyboard_state_array[SDL_SCANCODE_S])
-    {
-        rb.Velocity.Y = 1;
-    }
-    else{
-        rb.Velocity.Y = 0;
-    }
+
 
     if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
     {
@@ -34,8 +43,8 @@ void Player::Input(const Uint8 *keyboard_state_array){
 }
 
 void Player::onCollide(CollisionInfo collisionInfo){
-    // Position.X += collisionInfo.deltaPos.X;
-    // Position.Y += collisionInfo.deltaPos.Y;
-    // rect.x = Position.X;
-    // rect.y = Position.Y;
+    Position.X += collisionInfo.deltaPos.X;
+    Position.Y += collisionInfo.deltaPos.Y;
+    rect.x = Position.X;
+    rect.y = Position.Y;
 }

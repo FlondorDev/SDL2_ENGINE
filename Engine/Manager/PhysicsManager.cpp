@@ -5,21 +5,42 @@
 
 std::vector<RigidBody*> PhysicsManager::RigidBodys {};
 
+Uint8 reverseCollisionType(Uint8 collision){
+    Uint8 c = 0;
+
+    if(collision & CollisionType::TOP) c |= CollisionType::BOTTOM;
+    else if(collision & CollisionType::BOTTOM) c |= CollisionType::TOP;
+
+    if(collision & CollisionType::LEFT) c |= CollisionType::RIGHT;
+    else if(collision & CollisionType::RIGHT) c |= CollisionType::LEFT;
+
+    return c;
+}
+
 void PhysicsManager::Update(){
     CollisionInfo Info {nullptr, Vector2{0,0}};
     for (size_t i = 0; i < RigidBodys.size(); i++)
     {
+        RigidBodys.at(i)->isGrounded = false;
+    }
+
+    for (size_t i = 0; i < RigidBodys.size(); i++)
+    {
         for (size_t j = i + 1; j < RigidBodys.size(); j++)
         {   
+            Info.collision = 0;
             if(RigidBodys.at(i)->CheckCollision(RigidBodys.at(j), Info)){
 
                 Info.other = RigidBodys.at(i)->owner;
+                RigidBodys.at(j)->isGrounded = RigidBodys.at(j)->isGrounded ? true : Info.collision & CollisionType::TOP;
                 RigidBodys.at(j)->owner->onCollide(Info);
 
                 // reverse result
+                Info.collision = reverseCollisionType(Info.collision);
                 Info.deltaPos = -Info.deltaPos;
 
                 Info.other = RigidBodys.at(j)->owner;
+                RigidBodys.at(i)->isGrounded = RigidBodys.at(i)->isGrounded ? true : Info.collision & CollisionType::TOP;
                 RigidBodys.at(i)->owner->onCollide(Info);
         
             }

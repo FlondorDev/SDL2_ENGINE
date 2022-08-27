@@ -3,7 +3,11 @@
 #include "../include/Physics/CircleCollider.hpp"
 #include "../include/GameObject.hpp"
 
-RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}
+float RigidBody::Gravity = 1.f;
+float RigidBody::MinGravity = -16.f;
+float RigidBody::MaxGravity = 8.f;
+
+RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}, isActive{false}, isGravityAffected{false}, isGrounded{false}
 {
     PhysicsManager::Add(this);
 }
@@ -15,8 +19,15 @@ RigidBody::~RigidBody() {
 }
 
 void RigidBody::Update(){
-    (*Position).X += Velocity.X * Speed;// * Clock::GetDeltaTime();
-    (*Position).Y += Velocity.Y * Speed;// * Clock::GetDeltaTime();
+    if(isActive){
+        if(isGravityAffected && !isGrounded){
+            Velocity.Y += Gravity;
+            SDL_clamp(Velocity.Y, MinGravity, MaxGravity);
+        }
+        
+        (*Position).X += Velocity.X * Speed;// * Clock::GetDeltaTime();
+        (*Position).Y += Velocity.Y;// * Clock::GetDeltaTime();
+    }
 }
 
 bool RigidBody::CheckCollision(RigidBody* Other, CollisionInfo& Info){

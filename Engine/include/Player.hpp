@@ -10,6 +10,8 @@ class Player : public IController, public GameObject
         Player(int W, int H, std::string Tex, Vector2 Pos, int speed);
         void Input(const Uint8 *keyboard_state_array) override;
         void onCollide(CollisionInfo info) override;
+        void Update() override;
+        void Jump();
 };
 
 

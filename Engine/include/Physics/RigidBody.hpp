@@ -19,6 +19,12 @@ class RigidBody
         GameObject* const owner;
 
     public:
+        static float Gravity;
+        static float MinGravity;
+        static float MaxGravity;
+        bool isGravityAffected;
+        bool isGrounded;
+        bool isActive;
         int Speed;
         Vector2* const Position;
         Vector2 Velocity;
