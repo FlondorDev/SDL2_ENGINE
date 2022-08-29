@@ -24,11 +24,11 @@ void RigidBody::Update(){
             Velocity.Y += Gravity;
             SDL_clamp(Velocity.Y, MinGravity, MaxGravity);
         }
-        
-        (*Position).X += Velocity.X * Speed;// * Clock::GetDeltaTime();
-        (*Position).Y += Velocity.Y;// * Clock::GetDeltaTime();
+
+        (*Position).X += (Velocity.X * Speed) * Clock::GetDeltaTime();
+        (*Position).Y += (Velocity.Y) * Clock::GetDeltaTime();
     }
-}
+}      
 
 bool RigidBody::CheckCollision(RigidBody* Other, CollisionInfo& Info){
     return collider->CheckCollision(Other->collider, Info);
@@ -41,5 +41,5 @@ void RigidBody::CreateCircleCollider(int Radius, Vector2 Offset){
 
 void RigidBody::CreateBoxCollider(int W, int H, Vector2 Offset){
     if(collider != nullptr) delete collider;
-    collider = new BoxCollider{this,W,H,Offset};
+    collider = new BoxCollider{this, W, H, Offset};
 }

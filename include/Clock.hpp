@@ -6,13 +6,13 @@ class Clock
 {
     private:
         static int FPS_TARGET;
-        static int FRAME_DELAY;
-        static Uint32 fpsTimer;
+        static Uint32 FRAME_DELAY;
         static Uint32 capTimer;
-        static int countedFrames;
+        static Uint32 deltaTimer;
         Clock();
 
     public:
+        static float DeltaMultiplier;
         static void SetFPS(int);
         static void StartTick();
         static void EndTick();
