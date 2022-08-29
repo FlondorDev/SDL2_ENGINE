@@ -18,13 +18,15 @@ int main(int argc, char* args[])
     bool quit = false;
     GFXManager::Init("Chironi",SCREEN_WIDTH,SCREEN_HEIGHT);
 
-    GFXManager::Add("Hello", "Assets/preview.png");
+    GFXManager::Add("Hello", "Assets/previewd.png");
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
+    GFXManager::Add("Saul", "Assets/sas.png");
+    GFXManager::Add("prev", "Assets/previewd.png");
 
-    Player player {150,150,"Chiron",Vector2{30,30},6};
-    GameObject obj {1280,100,"Hello",Vector2{0,620}};
-    GameObject obj2 {150,150,"Hello",Vector2{0,470}};
-    GameObject obj3 {300,300,"Hello",Vector2{400,70}};
+    Player player {150,150,"Chiron",Vector2{30, 30},6};
+    GameObject obj {1280,100,"Hello",Vector2{0, 620}};
+    GameObject obj2 {150,150,"Hello",Vector2{0, 470}};
+    GameObject obj3 {150,150,"Hello",Vector2{150, 320}};
 
     std::string Title;
     SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
@@ -49,12 +51,13 @@ int main(int argc, char* args[])
         
         PhysicsManager::Update();
         
+        //SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Saul"), nullptr, nullptr);
         DrawManager::Draw();
 
         PhysicsManager::Draw();
 
         SDL_RenderSetViewport(GFXManager::Renderer, &viewPort);
-        SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Hello"), nullptr, nullptr);
+        SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("prev"), nullptr, nullptr);
         
         //Update screen
         SDL_RenderPresent( GFXManager::Renderer );

@@ -1,30 +1,29 @@
 #include "include/Clock.hpp"
 
 int Clock::FPS_TARGET = 60;
-int Clock::FRAME_DELAY = 1000 / FPS_TARGET;
-int Clock::countedFrames = 0;
-Uint32 Clock::fpsTimer = SDL_GetTicks();
+Uint32 Clock::FRAME_DELAY = 1000 / FPS_TARGET;
 Uint32 Clock::capTimer = 0;
+Uint32 Clock::deltaTimer = 0;
+float Clock::DeltaMultiplier = 50;
 
 
 void Clock::StartTick(){
+    deltaTimer = capTimer;
     capTimer = SDL_GetTicks();
 }
 
 double Clock::GetDeltaTime(){
-    return (SDL_GetTicks() - capTimer);
+    return ((capTimer - deltaTimer) / 1000.0 ) * DeltaMultiplier;
 }
 
 float Clock::GetFps(){
-    return 1000 / (SDL_GetTicks() - capTimer);
+    return 1000 / (capTimer - deltaTimer);
 }
 
 void Clock::EndTick(){
-    // Set updated time
-    ++countedFrames;
 
     // Cap to 60 FPS
-    int frameTicks = (SDL_GetTicks() - capTimer);
+    Uint32 frameTicks = (SDL_GetTicks() - capTimer);
     if( frameTicks < FRAME_DELAY )
     {
         //Wait remaining time

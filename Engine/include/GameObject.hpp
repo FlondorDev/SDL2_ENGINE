@@ -11,7 +11,7 @@
 class GameObject : public IDraw, public IUpdate
 {
     protected:
-        SDL_Rect rect;
+        SDL_FRect rect;
         RigidBody rb;
 
     public:
