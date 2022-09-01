@@ -5,6 +5,8 @@ Player::Player(int W, int H, std::string Tex, Vector2 Pos, int speed): GameObjec
     rb.CreateBoxCollider(W,H);
     rb.isActive = true;
     rb.isGravityAffected = true;
+    if(GFXManager::MainCamera != nullptr)
+        GFXManager::MainCamera->Target = this;
     //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 

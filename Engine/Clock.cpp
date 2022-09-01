@@ -21,15 +21,12 @@ float Clock::GetFps(){
 }
 
 void Clock::EndTick(){
-
     // Cap to 60 FPS
     Uint32 frameTicks = (SDL_GetTicks() - capTimer);
-    if( frameTicks < FRAME_DELAY )
-    {
+    if( frameTicks < FRAME_DELAY ){
         //Wait remaining time
         //SDL_Delay( FRAME_DELAY - frameTicks );
     }
-
 }
 
 void Clock::SetFPS(int fps){

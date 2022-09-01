@@ -6,6 +6,14 @@ SDL_Window* GFXManager::Window {nullptr};
 
 SDL_Renderer* GFXManager::Renderer {nullptr};
 
+Camera* GFXManager::MainCamera {nullptr};
+
+int GFXManager::ScreenWidth = 1280;
+int GFXManager::ScreenHeight = 720;
+
+int GFXManager::LogicWidth = 1280;
+int GFXManager::LogicHeight = 720;
+
 void GFXManager::Add(std::string key, std::string path){
     Surfaces.insert(std::pair<std::string,SDL_Texture*>(key,GFXManager::LoadImage(path)));
 }
@@ -27,6 +35,23 @@ SDL_Texture* GFXManager::Get(std::string key){
     return Surfaces.at(key);
 }
 
+Vector2 GFXManager::GetPositionRelativeToCamera(Vector2 Position){
+     if(GFXManager::MainCamera != nullptr){
+        Position.X -= GFXManager::MainCamera->CameraRender.x;
+        Position.Y -= GFXManager::MainCamera->CameraRender.y;
+    }
+    return Position;
+}
+
+void GFXManager::DrawTexture(std::string Texture, SDL_FRect* RenderSquare, SDL_Rect* clip, double angle, SDL_FPoint* center, SDL_RendererFlip flipMode){
+    if(GFXManager::MainCamera != nullptr){
+        RenderSquare->x -= GFXManager::MainCamera->CameraRender.x;
+        RenderSquare->y -= GFXManager::MainCamera->CameraRender.y;
+    }
+
+    SDL_RenderCopyExF( GFXManager::Renderer, GFXManager::Get(Texture), clip, RenderSquare, angle, center, flipMode );
+}
+
 void GFXManager::Remove(std::string key, bool free){
     if(free){
         SDL_DestroyTexture(Surfaces.at(key));
@@ -45,7 +70,7 @@ void GFXManager::Clear(bool free){
     Surfaces.clear();
 }
 
-void GFXManager::Init(std::string title, int W, int H)
+void GFXManager::Init(std::string title)
 {
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -55,7 +80,7 @@ void GFXManager::Init(std::string title, int W, int H)
     }
     else
     {
-        Window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
+        Window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
         //Create window
         if (Window == nullptr)
         {
@@ -70,6 +95,10 @@ void GFXManager::Init(std::string title, int W, int H)
         }
         else
         {
+            SDL_RenderSetLogicalSize(Renderer, LogicWidth, LogicHeight);
+            //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"),
+
+	        //SDL_ShowCursor(SDL_DISABLE);
             //Initialize renderer color
             SDL_SetRenderDrawColor( Renderer, 0, 0, 0, 255 );
 

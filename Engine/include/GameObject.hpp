@@ -2,11 +2,12 @@
 #define _GAMEOBJECT_H_
 #include <iostream>
 #include <SDL.h>
+#include "Physics/RigidBody.hpp"
 #include "interfaces/Interfaces.hpp"
 #include "Structs/Structs.hpp"
 #include "Manager/Managers.hpp"
 #include "Clock.hpp"
-#include "Physics/RigidBody.hpp"
+
 
 class GameObject : public IDraw, public IUpdate
 {

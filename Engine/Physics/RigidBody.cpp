@@ -21,12 +21,12 @@ RigidBody::~RigidBody() {
 void RigidBody::Update(){
     if(isActive){
         if(isGravityAffected && !isGrounded){
-            Velocity.Y += Gravity;
+            Velocity.Y += Gravity * Clock::GetDeltaTime();
             SDL_clamp(Velocity.Y, MinGravity, MaxGravity);
         }
 
         (*Position).X += (Velocity.X * Speed) * Clock::GetDeltaTime();
-        (*Position).Y += (Velocity.Y) * Clock::GetDeltaTime();
+        (*Position).Y += (Velocity.Y);
     }
 }      
 

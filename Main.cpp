@@ -3,33 +3,27 @@
 #include "Engine/include/Engine.hpp"
 #include <iostream>
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-
-int main(int argc, char* args[]);
-
-int WinMain(int argc, char* args[]){
-    return main(argc, args);
-}
-
 int main(int argc, char* args[])
 {
     SDL_Event e{};
     bool quit = false;
-    GFXManager::Init("Chironi",SCREEN_WIDTH,SCREEN_HEIGHT);
+    GFXManager::Init("Chironi");
 
     GFXManager::Add("Hello", "Assets/previewd.png");
     GFXManager::Add("Chiron", "Assets/Chironi.bmp");
     GFXManager::Add("Saul", "Assets/sas.png");
     GFXManager::Add("prev", "Assets/previewd.png");
 
+    Camera camera;
+
     Player player {150,150,"Chiron",Vector2{30, 30},6};
     GameObject obj {1280,100,"Hello",Vector2{0, 620}};
     GameObject obj2 {150,150,"Hello",Vector2{0, 470}};
     GameObject obj3 {150,150,"Hello",Vector2{150, 320}};
 
+
     std::string Title;
-    SDL_Rect viewPort = { SCREEN_WIDTH - 64 - 128 , 64, 128, 128 };
+    SDL_Rect viewPort = { GFXManager::LogicWidth - 64 - 128 , 64, 128, 128 };
 
     while (!quit) {
         //Clear screen
@@ -39,7 +33,7 @@ int main(int argc, char* args[])
         Clock::StartTick();
 
         while(SDL_PollEvent(&e) != 0){
-             if (e.type == SDL_QUIT)
+            if (e.type == SDL_QUIT)
             {
                 quit = true;
             }
@@ -50,8 +44,10 @@ int main(int argc, char* args[])
         UpdateManager::Update();
         
         PhysicsManager::Update();
+
+        camera.Update();
         
-        //SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Saul"), nullptr, nullptr);
+        //SDL_RenderCopy(GFXManager::Renderer, GFXManager::Get("Saul"), &camera.CameraRender, nullptr);
         DrawManager::Draw();
 
         PhysicsManager::Draw();
@@ -75,3 +71,8 @@ int main(int argc, char* args[])
     GFXManager::Close();
     return 0;
 }
+
+int WinMain(int argc, char* args[]){
+    return main(argc, args);
+}
+

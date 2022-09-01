@@ -120,6 +120,11 @@ bool BoxCollider::CheckCollision(Collider* Other, CollisionInfo& Info){
 
 void BoxCollider::Draw(){
     SDL_FRect draw {Collider::GetPosition().X,Collider::GetPosition().Y, static_cast<float>(w), static_cast<float>(h)};
+    if(GFXManager::MainCamera != nullptr){
+        draw.x -= GFXManager::MainCamera->CameraRender.x;
+        draw.y -= GFXManager::MainCamera->CameraRender.y;
+    }
+   
     SDL_SetRenderDrawColor(GFXManager::Renderer, 255,0,0,255);
     SDL_RenderDrawRectF(GFXManager::Renderer, &draw);
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,0,255);
