@@ -62,7 +62,11 @@ bool CircleCollider::CheckCollision(Collider* Other, CollisionInfo& Info){
 
 void CircleCollider::Draw(){
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,255,255);
-    SDL_RenderDrawPoint(GFXManager::Renderer, GetPosition().X, GetPosition().Y);
-    SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X, GetPosition().Y, r);
+    if(GFXManager::MainCamera != nullptr){
+        SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X - GFXManager::MainCamera->CameraRender.x, GetPosition().Y - GFXManager::MainCamera->CameraRender.y, r);
+    }
+    else{
+        SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X, GetPosition().Y, r);
+    }
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,0,255);
 }

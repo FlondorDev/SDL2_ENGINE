@@ -4,3 +4,4 @@
 #include "Clock.hpp"
 #include "GameObject.hpp"
 #include "Player.hpp"
+#include "Camera.hpp"

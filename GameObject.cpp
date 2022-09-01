@@ -15,7 +15,7 @@ void GameObject::Draw(){
     //SDL_SetTextureColorMod(GFXManager::Get(Texture), 0,255,255); 
     //SDL_Point Pivot {(int)(rect.w * 0.5f), (int)(rect.h * 0.5f)};
     //Render texture to screen
-    SDL_RenderCopyExF( GFXManager::Renderer, GFXManager::Get(Texture), nullptr,  &rect, 0, nullptr, SDL_FLIP_NONE );
+    GFXManager::DrawTexture(Texture, &rect);
 }
 
 void GameObject::Update(){
