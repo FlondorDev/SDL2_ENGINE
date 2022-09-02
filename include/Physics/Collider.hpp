@@ -14,9 +14,9 @@ class BoxCollider;
 class Collider
 {
     protected:
-        RigidBody* const owner;
         Collider(RigidBody* owner, Vector2 Offset);
     public:
+        RigidBody* const owner;
         Vector2 Offset;
         virtual Vector2 GetPosition();
         virtual bool CheckCollision(Collider*, CollisionInfo& Info);

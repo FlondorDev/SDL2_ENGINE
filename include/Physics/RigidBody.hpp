@@ -12,7 +12,6 @@ class GameObject;
 
 class RigidBody
 {
-    friend class PhysicsManager;
     
     private:
         Collider* collider;
@@ -30,7 +29,9 @@ class RigidBody
         Vector2 Velocity;
         RigidBody(GameObject* owner, int speed = 0);
         ~RigidBody();
+        void DestroyCollider();
         void Update();
+        void Draw();
         bool CheckCollision(RigidBody* Other, CollisionInfo& Info);
         void CreateCircleCollider(int Radius, Vector2 Offset = {0,0});
         void CreateBoxCollider(int W, int H, Vector2 Offset = {0,0});

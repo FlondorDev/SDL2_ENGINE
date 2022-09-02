@@ -11,6 +11,7 @@ GameObject::GameObject(std::string Tex, int W, int H, Vector2 Pos): Width {W}, H
     rect.x = Position.X;
     rect.y = Position.Y;
     rb.CreateBoxCollider(Width, Height);
+    rb.isActive = true;
     //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 
