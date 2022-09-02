@@ -1,0 +1,82 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build SDL2 Windows",
+            "command": "x86_64-w64-mingw32-gcc",
+            "args": [
+                "-g",
+                "${workspaceFolder}/*.cpp",
+                "${workspaceFolder}/Engine/*.cpp",
+                "${workspaceFolder}/Engine/Interface/*.cpp",
+                "${workspaceFolder}/Engine/Manager/*.cpp",
+                "${workspaceFolder}/Engine/Physics/*.cpp",
+                "-std=c++17",
+                "-I/opt/homebrew/Cellar/sdl2_image/x86_64-w64-mingw32/include/SDL2",
+                "-I/opt/homebrew/Cellar/sdl2/x86_64-w64-mingw32/include/SDL2",
+                "-I/opt/homebrew/Cellar/sdl2_ttf/x86_64-w64-mingw32/include/SDL2",
+                "-L/opt/homebrew/Cellar/sdl2_image/x86_64-w64-mingw32/lib",
+                "-L/opt/homebrew/Cellar/sdl2/x86_64-w64-mingw32/lib",
+                "-L/opt/homebrew/Cellar/sdl2_ttf/x86_64-w64-mingw32/lib",
+                "-lsdl2main",
+                "-lsdl2",
+                "-lsdl2_image",
+                "-lsdl2_ttf",
+                "-Wl,-Bstatic",
+                "-lstdc++",
+                "-lwinpthread",
+                "-Wl,-Bdynamic",
+                "-o",
+                "${workspaceFolder}/Main.exe",
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Build project with SDL2. for Windows"
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build SDL2",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/*.cpp",
+                "${workspaceFolder}/Engine/*.cpp",
+                "${workspaceFolder}/Engine/Interface/*.cpp",
+                "${workspaceFolder}/Engine/Manager/*.cpp",
+                "${workspaceFolder}/Engine/Physics/*.cpp",
+                "-std=c++17",
+                "-I/opt/homebrew/Cellar/sdl2_image/2.6.2/include/SDL2",
+                "-I/opt/homebrew/Cellar/sdl2/2.0.22/include/SDL2",
+                "-I/opt/homebrew/Cellar/sdl2_ttf/2.20.1/include/SDL2",
+                "-L/opt/homebrew/Cellar/sdl2_image/2.6.2/lib",
+                "-L/opt/homebrew/Cellar/sdl2/2.0.22/lib",
+                "-L/opt/homebrew/Cellar/sdl2_ttf/2.20.1/lib",
+                "-lsdl2",
+                "-lsdl2_image",
+                "-lsdl2_ttf",
+                "-o${workspaceFolder}/Main"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build project with SDL2."
+        }
+    ]
+}

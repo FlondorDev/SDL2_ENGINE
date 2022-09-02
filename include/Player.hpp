@@ -7,7 +7,7 @@
 class Player : public IController, public GameObject
 {
     public:
-        Player(int W, int H, std::string Tex, Vector2 Pos, int speed);
+        Player(std::string Tex, int W = 0, int H = 0, Vector2  = {0, 0}, int speed = 5);
         void Input(const Uint8 *keyboard_state_array) override;
         void onCollide(CollisionInfo info) override;
         void Update() override;

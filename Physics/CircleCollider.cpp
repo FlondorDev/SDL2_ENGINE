@@ -1,6 +1,7 @@
 #include "../include/Physics/CircleCollider.hpp"
 #include "../include/Physics/BoxCollider.hpp"
 #include "../include/Physics/RigidBody.hpp"
+#include "../include/GameObject.hpp"
 
 CircleCollider::CircleCollider(RigidBody* Owner, int R, Vector2 offset) : Collider(Owner,offset), r(R)
 {
@@ -62,11 +63,13 @@ bool CircleCollider::CheckCollision(Collider* Other, CollisionInfo& Info){
 
 void CircleCollider::Draw(){
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,255,255);
-    if(GFXManager::MainCamera != nullptr){
-        SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X - GFXManager::MainCamera->CameraRender.x, GetPosition().Y - GFXManager::MainCamera->CameraRender.y, r);
-    }
-    else{
-        SDL_RenderDrawCircle(GFXManager::Renderer, GetPosition().X, GetPosition().Y, r);
-    }
+
+    SDL_RenderDrawCircle(
+        GFXManager::Renderer, 
+        GetPosition().X + (owner->owner->Camera != nullptr ? owner->owner->Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0)), 
+        GetPosition().Y + (owner->owner->Camera != nullptr ? owner->owner->Camera->CameraRender.y : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.y : 0)), 
+        r
+    );
+
     SDL_SetRenderDrawColor(GFXManager::Renderer, 0,0,0,255);
 }

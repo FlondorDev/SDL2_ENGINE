@@ -14,13 +14,14 @@ class GameObject : public IDraw, public IUpdate
     protected:
         SDL_FRect rect;
         RigidBody rb;
-
+        
     public:
+        Camera* Camera;
         Vector2 Position;
         std::string Texture;
         int Width;
         int Height;
-        GameObject(int W, int H, std::string Tex, Vector2 Pos);
+        GameObject(std::string Tex, int W = 0, int H = 0, Vector2 Pos = {0,0});
         void Draw() override;
         void Update() override;
         virtual void onCollide(CollisionInfo);

@@ -16,9 +16,9 @@ class RigidBody
     
     private:
         Collider* collider;
-        GameObject* const owner;
 
     public:
+        GameObject* const owner;
         static float Gravity;
         static float MinGravity;
         static float MaxGravity;
