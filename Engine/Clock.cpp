@@ -13,7 +13,7 @@ void Clock::StartTick(){
 }
 
 double Clock::GetDeltaTime(){
-    return ((capTimer - deltaTimer) / 1000.0 ) * DeltaMultiplier;
+    return 1; //((capTimer - deltaTimer) / 1000.0 ) * DeltaMultiplier;
 }
 
 float Clock::GetFps(){

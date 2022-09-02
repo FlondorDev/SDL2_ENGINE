@@ -1,12 +1,16 @@
 #include "include/GameObject.hpp"
 
-GameObject::GameObject(int W, int H, std::string Tex, Vector2 Pos): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, rb{this}
+GameObject::GameObject(std::string Tex, int W, int H, Vector2 Pos): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, rb{this}
 {
+    if(W == 0 && H == 0){
+        SDL_QueryTexture(GFXManager::Get(Tex), nullptr, nullptr, &Width, &Height);
+    }
+
     rect.w = Width;
     rect.h = Height;
     rect.x = Position.X;
     rect.y = Position.Y;
-    rb.CreateBoxCollider(W, H);
+    rb.CreateBoxCollider(Width, Height);
     //rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 
@@ -15,7 +19,7 @@ void GameObject::Draw(){
     //SDL_SetTextureColorMod(GFXManager::Get(Texture), 0,255,255); 
     //SDL_Point Pivot {(int)(rect.w * 0.5f), (int)(rect.h * 0.5f)};
     //Render texture to screen
-    GFXManager::DrawTexture(Texture, &rect);
+    GFXManager::DrawTexture(Texture, &rect, Camera);
 }
 
 void GameObject::Update(){

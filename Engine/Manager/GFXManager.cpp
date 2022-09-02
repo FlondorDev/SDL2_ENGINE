@@ -1,4 +1,5 @@
 #include "../include/Manager/GFXManager.hpp"
+#include "../include/Manager/CameraManager.hpp"
 
 std::map<std::string, SDL_Texture*> GFXManager::Surfaces {};
 
@@ -6,7 +7,7 @@ SDL_Window* GFXManager::Window {nullptr};
 
 SDL_Renderer* GFXManager::Renderer {nullptr};
 
-Camera* GFXManager::MainCamera {nullptr};
+TTF_Font* GFXManager::DefaultFont {nullptr};
 
 int GFXManager::ScreenWidth = 1280;
 int GFXManager::ScreenHeight = 720;
@@ -16,6 +17,10 @@ int GFXManager::LogicHeight = 720;
 
 void GFXManager::Add(std::string key, std::string path){
     Surfaces.insert(std::pair<std::string,SDL_Texture*>(key,GFXManager::LoadImage(path)));
+}
+
+void GFXManager::Add(std::string key, SDL_Texture* Texture){
+    Surfaces.insert(std::pair<std::string,SDL_Texture*>(key,Texture));
 }
 
 SDL_Texture* GFXManager::LoadImage(std::string path){
@@ -31,23 +36,32 @@ SDL_Texture* GFXManager::LoadImage(std::string path){
     return tmpOpt;
 }
 
+SDL_Texture* GFXManager::CreateTextImage(std::string Text, SDL_Color Color, TTF_Font* Font){
+    SDL_Surface* tmp = TTF_RenderText_Solid( Font != nullptr ? Font : DefaultFont, Text.c_str(), Color );
+    if (tmp == nullptr) {
+        printf("SDL Error: %s\n", SDL_GetError());
+        return nullptr;
+    }
+    //SDL_SetColorKey(tmp, SDL_TRUE, SDL_MapRGB(tmp->format,255,255,255));
+    SDL_Texture* tmpOpt = SDL_CreateTextureFromSurface(GFXManager::Renderer, tmp);
+
+    SDL_FreeSurface(tmp);
+    return tmpOpt;
+}
+
 SDL_Texture* GFXManager::Get(std::string key){
     return Surfaces.at(key);
 }
 
-Vector2 GFXManager::GetPositionRelativeToCamera(Vector2 Position){
-     if(GFXManager::MainCamera != nullptr){
-        Position.X -= GFXManager::MainCamera->CameraRender.x;
-        Position.Y -= GFXManager::MainCamera->CameraRender.y;
-    }
+Vector2 GFXManager::GetPositionRelativeToCamera(Vector2 Position, Camera* Camera){
+    Position.X -= (Camera != nullptr ? Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0));
+    Position.Y -= (Camera != nullptr ? Camera->CameraRender.y : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.y : 0));
     return Position;
 }
 
-void GFXManager::DrawTexture(std::string Texture, SDL_FRect* RenderSquare, SDL_Rect* clip, double angle, SDL_FPoint* center, SDL_RendererFlip flipMode){
-    if(GFXManager::MainCamera != nullptr){
-        RenderSquare->x -= GFXManager::MainCamera->CameraRender.x;
-        RenderSquare->y -= GFXManager::MainCamera->CameraRender.y;
-    }
+void GFXManager::DrawTexture(std::string Texture, SDL_FRect* RenderSquare, Camera* Camera, SDL_Rect* clip, double angle, SDL_FPoint* center, SDL_RendererFlip flipMode){
+    RenderSquare->x += (Camera != nullptr ? Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0));
+    RenderSquare->y += (Camera != nullptr ? Camera->CameraRender.y : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.y : 0));
 
     SDL_RenderCopyExF( GFXManager::Renderer, GFXManager::Get(Texture), clip, RenderSquare, angle, center, flipMode );
 }
@@ -105,6 +119,12 @@ void GFXManager::Init(std::string title)
             if( !( IMG_Init( IMG_INIT_PNG ) & IMG_INIT_PNG ) ){
                 printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
             }
+
+            //Initialize SDL_ttf
+            if( TTF_Init() == -1 )
+            {
+                printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+            }
         }
 
     }
@@ -120,6 +140,8 @@ void GFXManager::Close()
     }
 
     SDL_DestroyWindow(Window);
-
+    if(DefaultFont != nullptr) TTF_CloseFont( DefaultFont );
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }

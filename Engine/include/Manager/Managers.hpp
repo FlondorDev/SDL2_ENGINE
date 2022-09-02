@@ -3,3 +3,4 @@
 #include "ControllerManager.hpp"
 #include "UpdateManager.hpp"
 #include "PhysicsManager.hpp"
+#include "CameraManager.hpp"
