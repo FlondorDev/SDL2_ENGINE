@@ -21,13 +21,16 @@ void PhysicsManager::Update(){
     CollisionInfo Info {nullptr, Vector2{0,0}};
     for (size_t i = 0; i < RigidBodys.size(); i++)
     {
+        if(!RigidBodys.at(i)->isActive) continue;
         RigidBodys.at(i)->isGrounded = false;
     }
 
     for (size_t i = 0; i < RigidBodys.size(); i++)
     {
+        if(!RigidBodys.at(i)->isActive) continue;
         for (size_t j = i + 1; j < RigidBodys.size(); j++)
         {   
+            if(!RigidBodys.at(j)->isActive) continue;
             Info.collision = 0;
             if(RigidBodys.at(i)->CheckCollision(RigidBodys.at(j), Info)){
 
@@ -51,7 +54,7 @@ void PhysicsManager::Update(){
 void PhysicsManager::Draw(){
     for (size_t i = 0; i < RigidBodys.size(); i++)
     {
-        RigidBodys.at(i)->collider->Draw();
+        RigidBodys.at(i)->Draw();
     }
 }
 

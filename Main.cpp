@@ -28,7 +28,7 @@ int main(int argc, char* args[])
     GameObject obj2 {"Hello", 150,150, Vector2{0, 470}};
     GameObject obj3 {"Hello", 150,150, Vector2{150, 320}};
     GameObject obj4 {"testo", 0, 0, Vector2{0, 0}};
-
+    obj4.rb.DestroyCollider();
     CameraManager::Get("Gui")->SetTarget(&obj4);
 
     std::string Title;

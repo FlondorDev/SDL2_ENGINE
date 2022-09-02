@@ -13,9 +13,7 @@ RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Own
 }
 
 RigidBody::~RigidBody() {
-    if(collider != nullptr){
-        delete collider;
-    }
+    DestroyCollider();
 }
 
 void RigidBody::Update(){
@@ -28,9 +26,16 @@ void RigidBody::Update(){
         (*Position).X += (Velocity.X * Speed) * Clock::GetDeltaTime();
         (*Position).Y += (Velocity.Y);
     }
-}      
+}    
+
+void RigidBody::Draw(){
+    if(collider != nullptr && isActive){
+        collider->Draw();
+    }
+}
 
 bool RigidBody::CheckCollision(RigidBody* Other, CollisionInfo& Info){
+    if(collider == nullptr || Other->collider == nullptr) return false;
     return collider->CheckCollision(Other->collider, Info);
 }
 
@@ -42,4 +47,11 @@ void RigidBody::CreateCircleCollider(int Radius, Vector2 Offset){
 void RigidBody::CreateBoxCollider(int W, int H, Vector2 Offset){
     if(collider != nullptr) delete collider;
     collider = new BoxCollider{this, W, H, Offset};
+}
+
+void RigidBody::DestroyCollider(){
+    if(collider != nullptr){
+        delete collider;
+        collider = nullptr;
+    }
 }
