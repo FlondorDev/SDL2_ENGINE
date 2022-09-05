@@ -17,8 +17,8 @@ Camera::~Camera(){
 void Camera::Update(){
     if(Target != nullptr){
         if(CameraManager::MainCamera == this){
-            CameraRender.x = -((Target->Position.X + Target->Width / 2) - GFXManager::LogicWidth / 2);
-            CameraRender.y = -((Target->Position.Y + Target->Height / 2) - GFXManager::LogicHeight / 2);
+            CameraRender.x = -((Target->Position.X + Target->Width * 0.5f) - GFXManager::LogicWidth * 0.5f);
+            CameraRender.y = -((Target->Position.Y + Target->Height * 0.5f) - GFXManager::LogicHeight * 0.5f);
         }
     }
 }
