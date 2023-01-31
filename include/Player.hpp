@@ -6,8 +6,11 @@
 
 class Player : public IController, public GameObject
 {
+    private:
+        int jumps;
+        bool jumped;
     public:
-        Player(std::string Tex, int W = 0, int H = 0, Vector2  = {0, 0}, int speed = 5);
+        Player(std::string Tex, Vector2  = {0, 0}, int speed = 5, int W = 0, int H = 0);
         void Input(const Uint8 *keyboard_state_array) override;
         void onCollide(CollisionInfo info) override;
         void Update() override;

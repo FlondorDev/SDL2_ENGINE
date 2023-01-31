@@ -4,8 +4,8 @@
 #include "../include/GameObject.hpp"
 
 float RigidBody::Gravity = 1.f;
-float RigidBody::MinGravity = -16.f;
-float RigidBody::MaxGravity = 8.f;
+float RigidBody::MinGravity = -20.f;
+float RigidBody::MaxGravity = 15.f;
 
 RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}, isActive{false}, isGravityAffected{false}, isGrounded{false}
 {
@@ -20,7 +20,7 @@ void RigidBody::Update(){
     if(isActive){
         if(isGravityAffected && !isGrounded){
             Velocity.Y += Gravity * Clock::GetDeltaTime();
-            SDL_clamp(Velocity.Y, MinGravity, MaxGravity);
+            Velocity.Y = SDL_clamp(Velocity.Y, MinGravity, MaxGravity);
         }
 
         (*Position).X += (Velocity.X * Speed) * Clock::GetDeltaTime();

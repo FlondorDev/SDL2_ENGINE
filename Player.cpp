@@ -1,8 +1,8 @@
 #include "include/Player.hpp"
 
-Player::Player(std::string Tex, int W, int H, Vector2 Pos, int speed): GameObject{Tex, W, H, Pos}{
+Player::Player(std::string Tex, Vector2 Pos, int speed, int W, int H): GameObject{Tex, Pos, W, H}, jumps{2}, jumped{false}{
     rb.Speed = speed;
-    rb.CreateBoxCollider(W,H);
+    rb.CreateBoxCollider(Width,Height);
     rb.isActive = true;
     rb.isGravityAffected = true;
     if(CameraManager::MainCamera != nullptr){
@@ -12,24 +12,33 @@ Player::Player(std::string Tex, int W, int H, Vector2 Pos, int speed): GameObjec
 }
 
 void Player::Update(){
-    std::cout<<rb.isGrounded<<std::endl;
     rb.Update();
     rect.x = Position.X;
     rect.y = Position.Y;
 }
 
 void Player::Jump(){
-    if(rb.isGrounded){
-        rb.Velocity.Y += -30;
+    if(jumps > 0){
+        jumps--;
+        rb.Velocity.Y = RigidBody::MinGravity;
     }
 }
 
 void Player::Input(const Uint8 *keyboard_state_array){
-    // Move centerpoint of rotation for one of the trees:
-    if (keyboard_state_array[SDL_SCANCODE_SPACE])
+    if(rb.isGrounded) jumps = 2;
+    if(keyboard_state_array[SDL_SCANCODE_SPACE]){
+        if(!jumped)
+        {
+            jumped = true;
+            Jump();
+
+        }
+    }    
+    else
     {
-        Jump();
+        jumped = false;
     }
+
 
     if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
     {
@@ -41,6 +50,15 @@ void Player::Input(const Uint8 *keyboard_state_array){
     }
     else{
         rb.Velocity.X = 0;
+    }
+
+    if (keyboard_state_array[SDL_SCANCODE_Q])
+    {
+        rb.Speed = 6;
+    }
+    else if(keyboard_state_array[SDL_SCANCODE_E])
+    {
+        rb.Speed = 12;
     }
 }
 

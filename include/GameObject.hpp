@@ -21,7 +21,7 @@ class GameObject : public IDraw, public IUpdate
         std::string Texture;
         int Width;
         int Height;
-        GameObject(std::string Tex, int W = 0, int H = 0, Vector2 Pos = {0,0});
+        GameObject(std::string Tex, Vector2 Pos = {0,0}, int W = 0, int H = 0);
         void Draw() override;
         void Update() override;
         virtual void onCollide(CollisionInfo);

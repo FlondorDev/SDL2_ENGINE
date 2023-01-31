@@ -1,6 +1,6 @@
 #include "include/GameObject.hpp"
 
-GameObject::GameObject(std::string Tex, int W, int H, Vector2 Pos): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, rb{this}
+GameObject::GameObject(std::string Tex, Vector2 Pos, int W, int H): Width {W}, Height {H}, Texture{Tex}, Position{Pos}, rb{this}
 {
     if(W == 0 && H == 0){
         SDL_QueryTexture(GFXManager::Get(Tex), nullptr, nullptr, &Width, &Height);
