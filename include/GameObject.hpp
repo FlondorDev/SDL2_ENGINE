@@ -16,7 +16,7 @@ class GameObject : public IDraw, public IUpdate
         
     public:
         RigidBody rb;
-        Camera* Camera;
+        Camera* Camera = nullptr;
         Vector2 Position;
         std::string Texture;
         int Width;

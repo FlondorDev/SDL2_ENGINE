@@ -13,7 +13,7 @@ void Clock::StartTick(){
 }
 
 double Clock::GetDeltaTime(){
-    return 1; //((capTimer - deltaTimer) / 1000.0 ) * DeltaMultiplier;
+    return ((capTimer - deltaTimer) / 1000.0 ) * DeltaMultiplier;
 }
 
 float Clock::GetFps(){
@@ -25,7 +25,7 @@ void Clock::EndTick(){
     Uint32 frameTicks = (SDL_GetTicks() - capTimer);
     if( frameTicks < FRAME_DELAY ){
         //Wait remaining time
-        //SDL_Delay( FRAME_DELAY - frameTicks );
+        SDL_Delay( FRAME_DELAY - frameTicks );
     }
 }
 
