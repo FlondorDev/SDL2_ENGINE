@@ -67,7 +67,7 @@ Vector2 GFXManager::GetPositionRelativeToCamera(Vector2 Position, Camera *Camera
     return Position;
 }
 
-void GFXManager::DrawTexture(std::string Texture, SDL_FRect *RenderSquare, Camera *Camera, SDL_Rect *clip, double angle, SDL_FPoint *center, SDL_RendererFlip flipMode)
+void GFXManager::DrawTexture(std::string Texture, SDL_FRect *RenderSquare, Camera *Camera, SDL_Rect *clip, SDL_RendererFlip flipMode, double angle, SDL_FPoint *center)
 {
     RenderSquare->x += (Camera != nullptr ? Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0));
 

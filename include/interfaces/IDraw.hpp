@@ -9,7 +9,7 @@ class IDraw
         ~IDraw();
 
     public:
-        virtual void Draw() {}
+        virtual void Draw(SDL_RendererFlip mode = SDL_FLIP_NONE) {}
 };  
 
 #endif
