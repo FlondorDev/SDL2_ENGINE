@@ -7,6 +7,7 @@ GameObject::GameObject(std::string Tex, Vector2 Pos, int W, int H, bool repeatTe
         SDL_QueryTexture(GFXManager::Get(Tex), nullptr, nullptr, &Width, &Height);
     }
 
+    rb.collisionId = collisionMaskList::WALL;
     rect.w = Width;
     rect.h = Height;
     rect.x = Position.X;

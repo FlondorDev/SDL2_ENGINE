@@ -69,11 +69,11 @@ Vector2 GFXManager::GetPositionRelativeToCamera(Vector2 Position, Camera *Camera
 
 void GFXManager::DrawTexture(std::string Texture, SDL_FRect *RenderSquare, Camera *Camera, SDL_Rect *clip, SDL_RendererFlip flipMode, double angle, SDL_FPoint *center)
 {
-    RenderSquare->x += (Camera != nullptr ? Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0));
+    SDL_FRect RS {*RenderSquare};
+    RS.x += (Camera != nullptr ? Camera->CameraRender.x : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.x : 0));
+    RS.y += (Camera != nullptr ? Camera->CameraRender.y : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.y : 0));
 
-    RenderSquare->y += (Camera != nullptr ? Camera->CameraRender.y : (CameraManager::MainCamera != nullptr ? CameraManager::MainCamera->CameraRender.y : 0));
-
-    SDL_RenderCopyExF(GFXManager::Renderer, GFXManager::Get(Texture), clip, RenderSquare, angle, center, flipMode);
+    SDL_RenderCopyExF(GFXManager::Renderer, GFXManager::Get(Texture), clip, &RS, angle, center, flipMode);
 }
 
 void GFXManager::Remove(std::string key, bool free)

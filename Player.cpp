@@ -5,6 +5,8 @@ Player::Player(std::string Tex, Vector2 Pos, int speed, int W, int H): GameObjec
     rb.CreateBoxCollider(Width,Height);
     rb.isActive = true;
     rb.isGravityAffected = true;
+    rb.collisionId = collisionMaskList::PLAYER;
+    rb.addCollisionMask(collisionMaskList::WALL);
     if(CameraManager::MainCamera != nullptr){
         CameraManager::MainCamera->SetTarget(this);
     }
@@ -16,9 +18,7 @@ void Player::Draw(SDL_RendererFlip mode){
 }
 
 void Player::Update(){
-    rb.Update();
-    rect.x = Position.X;
-    rect.y = Position.Y;
+    GameObject::Update();
 }
 
 void Player::Jump(){
@@ -56,15 +56,6 @@ void Player::Input(const Uint8 *keyboard_state_array){
     }
     else{
         rb.Velocity.X = 0;
-    }
-
-    if (keyboard_state_array[SDL_SCANCODE_Q])
-    {
-        rb.Speed = 6;
-    }
-    else if(keyboard_state_array[SDL_SCANCODE_E])
-    {
-        rb.Speed = 12;
     }
 }
 

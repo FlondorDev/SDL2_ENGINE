@@ -13,7 +13,16 @@ RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Own
 }
 
 RigidBody::~RigidBody() {
+    PhysicsManager::Remove(this);
     DestroyCollider();
+}
+
+void RigidBody::addCollisionMask(unsigned char mask) {
+    this->collisionMask = this->collisionMask | mask;
+}
+
+bool RigidBody::checkCollisionMask(unsigned char mask) {
+    return (this->collisionMask & mask) > 0;
 }
 
 void RigidBody::Update(){

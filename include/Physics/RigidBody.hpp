@@ -10,6 +10,12 @@
 class Collider;
 class GameObject;
 
+enum collisionMaskList {
+    PLAYER = 1,
+    PEPPER = 2,
+    WALL = 4
+};
+
 class RigidBody
 {
     
@@ -17,10 +23,12 @@ class RigidBody
         Collider* collider;
 
     public:
-        GameObject* const owner;
         static float Gravity;
         static float MinGravity;
         static float MaxGravity;
+        collisionMaskList collisionId;
+        unsigned char collisionMask;
+        GameObject* const owner;
         bool isGravityAffected;
         bool isGrounded;
         bool isActive;
@@ -32,6 +40,8 @@ class RigidBody
         void DestroyCollider();
         void Update();
         void Draw();
+        void addCollisionMask(unsigned char mask);
+        bool checkCollisionMask(unsigned char mask);
         bool CheckCollision(RigidBody* Other, CollisionInfo& Info);
         void CreateCircleCollider(int Radius, Vector2 Offset = {0,0});
         void CreateBoxCollider(int W, int H, Vector2 Offset = {0,0});
