@@ -12,7 +12,7 @@ class Camera
     public:
         Camera(std::string name);
         ~Camera();
-        SDL_Rect CameraRender;
+        SDL_FRect CameraRender;
         void Update();
         GameObject* Target;
         void SetTarget(GameObject* Target);

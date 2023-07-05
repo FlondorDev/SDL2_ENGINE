@@ -49,6 +49,8 @@ void GameObject::Update()
     rb.Update();
     rect.x = Position.X;
     rect.y = Position.Y;
+    //Utils::Lerp(&rect, Position, Clock::GetDeltaTime());
+
     // rect.w = Width;
     // rect.h = Height;
 }

@@ -7,6 +7,7 @@
 #include "Structs/Structs.hpp"
 #include "Manager/Managers.hpp"
 #include "Clock.hpp"
+#include "Utils.hpp"
 
 
 class GameObject : public IDraw, public IUpdate

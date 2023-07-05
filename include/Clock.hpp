@@ -6,9 +6,9 @@ class Clock
 {
     private:
         static int FPS_TARGET;
-        static Uint32 FRAME_DELAY;
-        static Uint32 capTimer;
-        static Uint32 deltaTimer;
+        static Uint64 FRAME_DELAY;
+        static Uint64 capTimer;
+        static Uint64 deltaTimer;
         Clock();
 
     public:

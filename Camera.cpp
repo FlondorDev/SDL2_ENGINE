@@ -23,8 +23,10 @@ void Camera::Update()
     {
         if (CameraManager::MainCamera == this)
         {
-            CameraRender.x = -((Target->Position.X + Target->Width * 0.5f) - GFXManager::LogicWidth * 0.5f);
-            CameraRender.y = -((Target->Position.Y + Target->Height * 0.5f) - GFXManager::LogicHeight * 0.5f);
+            Utils::Lerp(&CameraRender, Vector2{
+                -((Target->Position.X + Target->Width * 0.5f) - GFXManager::LogicWidth * 0.5f),
+                -((Target->Position.Y + Target->Height * 0.5f) - GFXManager::LogicHeight * 0.5f)
+            }, Clock::GetDeltaTime());
         }
     }
 }

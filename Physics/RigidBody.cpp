@@ -7,7 +7,7 @@ float RigidBody::Gravity = 1.f;
 float RigidBody::MinGravity = -20.f;
 float RigidBody::MaxGravity = 15.f;
 
-RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}, isActive{false}, isGravityAffected{false}, isGrounded{false}
+RigidBody::RigidBody(GameObject* Owner, int speed) : owner{Owner}, Velocity{0,0}, Position{&Owner->Position}, collider{nullptr}, Speed{speed}, isActive{false}, isGravityAffected{false}, isGrounded{false}
 {
     PhysicsManager::Add(this);
 }

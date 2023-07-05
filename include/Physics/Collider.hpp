@@ -18,6 +18,7 @@ class Collider
     public:
         RigidBody* const owner;
         Vector2 Offset;
+        SDL_FRect draw;
         virtual Vector2 GetPosition();
         virtual bool CheckCollision(Collider*, CollisionInfo& Info);
         virtual bool CheckCollision(CircleCollider*, CollisionInfo& Info);
