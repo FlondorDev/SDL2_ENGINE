@@ -7,14 +7,10 @@ GameObject::GameObject(std::string Tex, Vector2 Pos, int W, int H, bool repeatTe
         SDL_QueryTexture(GFXManager::Get(Tex), nullptr, nullptr, &Width, &Height);
     }
 
-    rb.collisionId = collisionMaskList::WALL;
     rect.w = Width;
     rect.h = Height;
     rect.x = Position.X;
     rect.y = Position.Y;
-    rb.CreateBoxCollider(Width, Height);
-    rb.isActive = true;
-    // rb.CreateCircleCollider(W * 0.5 + 25, Vector2{-25,-25});
 }
 
 void GameObject::Draw(SDL_RendererFlip mode)
