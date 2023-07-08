@@ -1,4 +1,4 @@
-#include "include/Clock.hpp"
+#include "../include/Clock.hpp"
 
 int Clock::FPS_TARGET = 60;
 Uint64 Clock::FRAME_DELAY = 1000 / FPS_TARGET;

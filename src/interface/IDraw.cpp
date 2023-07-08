@@ -1,5 +1,5 @@
-#include "../include/interfaces/IDraw.hpp"
-#include "../include/Manager/DrawManager.hpp"
+#include "../../include/interfaces/IDraw.hpp"
+#include "../../include/Manager/DrawManager.hpp"
 
 
 IDraw::IDraw(){

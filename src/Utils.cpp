@@ -1,4 +1,4 @@
-#include "include/Utils.hpp"
+#include "../include/Utils.hpp"
 
 Vector2 Utils::Lerp(Vector2 origin, Vector2 end, float delta)
 {

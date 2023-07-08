@@ -1,4 +1,4 @@
-#include "include/GameObject.hpp"
+#include "../include/GameObject.hpp"
 
 GameObject::GameObject(std::string Tex, Vector2 Pos, int W, int H, bool repeatTex) : Width{W}, Height{H}, Texture{Tex}, Position{Pos}, rb{this}, repeatTexture{repeatTex}
 {

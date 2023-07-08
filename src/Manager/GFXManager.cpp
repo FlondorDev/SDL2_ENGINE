@@ -1,5 +1,5 @@
-#include "../include/Manager/GFXManager.hpp"
-#include "../include/Manager/CameraManager.hpp"
+#include "../../include/Manager/GFXManager.hpp"
+#include "../../include/Manager/CameraManager.hpp"
 
 std::map<std::string, SDL_Texture *> GFXManager::Surfaces{};
 

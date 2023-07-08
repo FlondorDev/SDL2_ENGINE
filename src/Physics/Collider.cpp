@@ -1,7 +1,7 @@
-#include "../include/Physics/Collider.hpp"
-#include "../include/Physics/BoxCollider.hpp"
-#include "../include/Physics/CircleCollider.hpp"
-#include "../include/Physics/RigidBody.hpp"
+#include "../../include/Physics/Collider.hpp"
+#include "../../include/Physics/BoxCollider.hpp"
+#include "../../include/Physics/CircleCollider.hpp"
+#include "../../include/Physics/RigidBody.hpp"
 
 Collider::Collider(RigidBody* Owner, Vector2 offset) : owner(Owner), Offset(offset)
 {

@@ -1,4 +1,4 @@
-#include "../include/Manager/CameraManager.hpp"
+#include "../../include/Manager/CameraManager.hpp"
 
 std::map<std::string, Camera*> CameraManager::Cameras {};
 

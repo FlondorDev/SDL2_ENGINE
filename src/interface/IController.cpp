@@ -1,6 +1,6 @@
 
-#include "../include/interfaces/IController.hpp"
-#include "../include/Manager/ControllerManager.hpp"
+#include "../../include/interfaces/IController.hpp"
+#include "../../include/Manager/ControllerManager.hpp"
 
 IController::IController(){
     ControllerManager::Add(this);

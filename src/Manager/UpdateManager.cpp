@@ -1,4 +1,4 @@
-#include "../include/Manager/UpdateManager.hpp"
+#include "../../include/Manager/UpdateManager.hpp"
 
 std::vector<IUpdate*> UpdateManager::Updatable {};
 

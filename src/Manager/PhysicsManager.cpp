@@ -1,7 +1,7 @@
-#include "../include/Manager/PhysicsManager.hpp"
-#include "../include/Physics/RigidBody.hpp"
-#include "../include/Physics/Collider.hpp"
-#include "../include/GameObject.hpp"
+#include "../../include/Manager/PhysicsManager.hpp"
+#include "../../include/Physics/RigidBody.hpp"
+#include "../../include/Physics/Collider.hpp"
+#include "../../include/GameObject.hpp"
 
 std::vector<RigidBody *> PhysicsManager::RigidBodys{};
 

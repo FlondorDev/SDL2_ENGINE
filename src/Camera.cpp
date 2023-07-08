@@ -1,7 +1,7 @@
-#include "include/Camera.hpp"
-#include "include/Manager/GFXManager.hpp"
-#include "include/Manager/CameraManager.hpp"
-#include "include/GameObject.hpp"
+#include "../include/Camera.hpp"
+#include "../include/Manager/GFXManager.hpp"
+#include "../include/Manager/CameraManager.hpp"
+#include "../include/GameObject.hpp"
 
 Camera::Camera(std::string Name) : name{Name}, CameraRender{0, 0, 0, 0}
 {

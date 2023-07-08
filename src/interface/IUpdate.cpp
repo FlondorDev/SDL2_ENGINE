@@ -1,5 +1,5 @@
-#include "../include/interfaces/IUpdate.hpp"
-#include "../include/Manager/UpdateManager.hpp"
+#include "../../include/interfaces/IUpdate.hpp"
+#include "../../include/Manager/UpdateManager.hpp"
 
 
 IUpdate::IUpdate(){

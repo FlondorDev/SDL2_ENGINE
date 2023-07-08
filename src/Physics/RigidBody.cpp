@@ -1,7 +1,7 @@
-#include "../include/Physics/RigidBody.hpp"
-#include "../include/Physics/BoxCollider.hpp"
-#include "../include/Physics/CircleCollider.hpp"
-#include "../include/GameObject.hpp"
+#include "../../include/Physics/RigidBody.hpp"
+#include "../../include/Physics/BoxCollider.hpp"
+#include "../../include/Physics/CircleCollider.hpp"
+#include "../../include/GameObject.hpp"
 
 float RigidBody::Gravity = 1.f;
 float RigidBody::MinGravity = -20.f;

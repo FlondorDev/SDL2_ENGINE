@@ -1,7 +1,7 @@
-#include "../include/Physics/CircleCollider.hpp"
-#include "../include/Physics/BoxCollider.hpp"
-#include "../include/Physics/RigidBody.hpp"
-#include "../include/GameObject.hpp"
+#include "../../include/Physics/CircleCollider.hpp"
+#include "../../include/Physics/BoxCollider.hpp"
+#include "../../include/Physics/RigidBody.hpp"
+#include "../../include/GameObject.hpp"
 
 CircleCollider::CircleCollider(RigidBody* Owner, int R, Vector2 offset) : Collider(Owner,offset), r(R)
 {
